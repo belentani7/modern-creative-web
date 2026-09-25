@@ -1,0 +1,218 @@
+@import "tailwindcss";
+
+/* ── NOIACORE LAB · sistema de color mínimo: negro + azul frío ───── */
+@theme {
+  --color-paper: #070a11;
+  --color-paper-2: #0b101a;
+  --color-paper-3: #121a28;
+  --color-ink: #e7edf7;
+  --color-ink-soft: #b9c5d8;
+  --color-ash: #7c8aa1;
+  --color-spot: #4d8dff;
+
+  --font-display: "Space Grotesk", "Inter", system-ui, sans-serif;
+  --font-sans: "Inter", system-ui, -apple-system, sans-serif;
+  --font-mono: "JetBrains Mono", ui-monospace, "SFMono-Regular", monospace;
+  --font-serif: "Inter", Georgia, serif;
+}
+
+@layer base {
+  html {
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+    scroll-behavior: smooth;
+  }
+  body {
+    background-color: #05070c;
+    color: #e7edf7;
+    font-family: var(--font-sans);
+    overflow-x: hidden;
+  }
+  ::selection {
+    background: #4d8dff;
+    color: #05070c;
+  }
+  :focus-visible {
+    outline: 2px solid #4d8dff;
+    outline-offset: 3px;
+  }
+  input,
+  select,
+  button {
+    font-family: inherit;
+  }
+}
+
+/* ── Rotulación técnica ─────────────────────────────────────────── */
+.lab {
+  font-family: var(--font-mono);
+  font-size: 0.6875rem;
+  line-height: 1.1;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  font-weight: 500;
+}
+.lab-xs {
+  font-family: var(--font-mono);
+  font-size: 0.625rem;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  font-weight: 500;
+}
+.tnum {
+  font-variant-numeric: tabular-nums;
+  font-family: var(--font-mono);
+}
+.voice {
+  font-family: var(--font-sans);
+  font-style: italic;
+  font-weight: 300;
+  letter-spacing: -0.02em;
+}
+
+/* ── Retícula de instrumento ────────────────────────────────────── */
+.sheet-grid {
+  background-image:
+    linear-gradient(to right, rgba(231, 237, 247, 0.05) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(231, 237, 247, 0.05) 1px, transparent 1px);
+  background-size: 28px 28px;
+}
+.sheet-grid-fine {
+  background-image:
+    linear-gradient(to right, rgba(231, 237, 247, 0.06) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(231, 237, 247, 0.06) 1px, transparent 1px);
+  background-size: 14px 14px;
+}
+
+.grain::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  opacity: 0.16;
+  mix-blend-mode: screen;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='3'/%3E%3C/filter%3E%3Crect width='180' height='180' filter='url(%23n)' opacity='0.5'/%3E%3C/svg%3E");
+}
+
+/* duotono frío: elimina cualquier tono cálido de la fotografía */
+.duotone {
+  filter: grayscale(1) sepia(0.55) hue-rotate(178deg) saturate(2.1) brightness(0.82) contrast(1.06);
+}
+
+.rule {
+  border-top: 1px solid rgba(231, 237, 247, 0.18);
+}
+
+.ticks {
+  background-image: repeating-linear-gradient(
+    to right,
+    rgba(231, 237, 247, 0.35) 0 1px,
+    transparent 1px 10px
+  );
+}
+
+.glow-core {
+  background: radial-gradient(
+    circle at center,
+    rgba(157, 196, 255, 0.35) 0%,
+    rgba(77, 141, 255, 0.16) 32%,
+    rgba(77, 141, 255, 0) 68%
+  );
+}
+
+/* ── Núcleo orbital ─────────────────────────────────────────────── */
+.orb-ring {
+  transform-box: view-box;
+  transform-origin: 50% 50%;
+  animation: spin 30s linear infinite;
+}
+.orb-ring-2 {
+  animation-duration: 46s;
+  animation-direction: reverse;
+}
+.orb-ring-3 {
+  animation-duration: 68s;
+}
+.orb-glow {
+  transform-box: view-box;
+  transform-origin: 50% 50%;
+  animation: pulse 5.5s ease-in-out infinite;
+}
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+@keyframes pulse {
+  0%,
+  100% {
+    opacity: 0.75;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1.05);
+  }
+}
+.caret::after {
+  content: "▌";
+  color: #4d8dff;
+  animation: blink 1.05s steps(2, start) infinite;
+}
+@keyframes blink {
+  to {
+    opacity: 0;
+  }
+}
+
+.mark-in {
+  animation: markIn 0.55s cubic-bezier(0.2, 0.8, 0.2, 1) both;
+}
+@keyframes markIn {
+  from {
+    opacity: 0;
+    transform: scale(0.9) rotate(-3deg);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1) rotate(0deg);
+  }
+}
+
+.marquee-track {
+  display: flex;
+  width: max-content;
+  animation: slide 34s linear infinite;
+}
+@keyframes slide {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+section[id],
+footer[id] {
+  scroll-margin-top: 116px;
+}
+@media (min-width: 1024px) {
+  section[id],
+  footer[id] {
+    scroll-margin-top: 84px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .marquee-track,
+  .mark-in,
+  .orb-ring,
+  .orb-glow,
+  .caret::after {
+    animation: none;
+  }
+  html {
+    scroll-behavior: auto;
+  }
+}
